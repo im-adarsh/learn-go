@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/adarsh-carousell/learn-go/array"
 	"github.com/adarsh-carousell/learn-go/tempconv"
 )
 
@@ -38,7 +37,10 @@ func main() {
 
 	println(tempconv.FahrenhietToCelsius(tempconv.Fahrenhiet(4)))
 
-	array.IterateOnString("hello")
+	printStruct()
+
+	variatic()
+
 }
 
 
@@ -101,8 +103,63 @@ func printArray(arr []string) {
 	}
 }
 
-func FetchUrl(url string) {
+/*
+*  STRUCT
+*
+*/
 
+type person struct { // similar to class
+	firstname string
+	lastname string
 }
+
+type secretAgent struct {
+	person
+	ltk bool
+}
+
+func printStruct() {
+	p1 := person{
+		firstname:"Adarsh",
+		lastname:"Kumar",
+	}
+
+	p2 := person{
+		firstname: "James",
+		lastname:"Bond",
+	}
+
+	secretAgent1 := secretAgent{
+		person: person{
+			firstname:"James",
+			lastname:"Bond",
+
+		},
+		ltk : false,
+
+	}
+	fmt.Println(p1,p2)
+	fmt.Println(secretAgent1)
+}
+
+/*
+* Variatic arguments
+*/
+
+func variatic()  {
+	x := []int{1,2,3}
+	sum(x...)
+}
+
+func sum(x ...int) int {
+
+	sum :=0;
+	for _,v := range x {
+		sum +=v
+	}
+	return sum;
+}
+
+
 
 
