@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+
 func MakeMap () map[string]int {
 	age := make(map[string]int)
 	age["alice"] =  1
@@ -34,4 +35,12 @@ func Contains(age map[string]int, key string) bool {
 		return false;
 	}
 	return true
+}
+
+func Exercise1(){
+	x:= []int{1,2,3,4,5}
+
+	for k,v := range x {
+		fmt.Println(k,v)
+	}
 }
