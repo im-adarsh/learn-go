@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/adarsh-carousell/learn-go/tempconv"
 )
@@ -52,6 +53,8 @@ func main() {
 	callingReturnFunction()
 
 	pointers()
+
+	jsonMarshal()
 
 }
 
@@ -121,8 +124,8 @@ func printArray(arr []string) {
 */
 
 type person struct { // similar to class
-	firstname string
-	lastname string
+	Firstname string
+	Lastname string
 }
 
 type secretAgent struct {
@@ -132,19 +135,19 @@ type secretAgent struct {
 
 func printStruct() {
 	p1 := person{
-		firstname:"Adarsh",
-		lastname:"Kumar",
+		Firstname:"Adarsh",
+		Lastname:"Kumar",
 	}
 
 	p2 := person{
-		firstname: "James",
-		lastname:"Bond",
+		Firstname: "James",
+		Lastname:"Bond",
 	}
 
 	secretAgent1 := secretAgent{
 		person: person{
-			firstname:"James",
-			lastname:"Bond",
+			Firstname:"James",
+			Lastname:"Bond",
 
 		},
 		ltk : false,
@@ -177,14 +180,14 @@ func sum(x ...int) int {
 */
 
 func (sa secretAgent) speak() { // notice this chaining attached to secretAgent
-	fmt.Print("I am secret agent. My name is : ", sa.firstname, sa.lastname)
+	fmt.Print("I am secret agent. My name is : ", sa.Firstname, sa.Lastname)
 }
 
 func callSpeak()  {
 	sa := secretAgent{
 		person : person{
-			firstname : "James ",
-			lastname : "Bond",
+			Firstname : "James ",
+			Lastname : "Bond",
 		},
 		ltk:true,
 
@@ -307,5 +310,57 @@ func changeValueAtAddress(y *int){
 	*y = 43
 	fmt.Println("after changing the value ",*y)
 }
+
+/*
+* JSON marshal
+*/
+
+func jsonMarshal() {
+	p1:= person{
+	"adarsh",
+	"kumar",
+	}
+
+	p2:= person{
+		"James",
+		"Bond",
+	}
+
+	ps :=  []person{p1, p2}
+	m, err:=json.Marshal(ps)
+	if err != nil {
+
+	}
+	fmt.Println(string(m))
+	jsonUnmarshal(string(m))
+
+}
+
+/*
+* JSON Unmarshal
+*/
+
+type person1 struct {
+	Firstname string `json:"Firstname"`
+	Lastname  string `json:"Lastname"`
+}
+
+func jsonUnmarshal(s string) {
+
+	bs := []byte(s)
+	var people1 []person1
+	err := json.Unmarshal(bs, &people1)
+	if err != nil {
+
+	}
+	fmt.Println(people1)
+
+}
+
+/*
+* Writer Interface
+*/
+
+
 
 
