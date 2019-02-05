@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/adarsh-carousell/learn-go/tempconv"
+	"sort"
 )
 
 
@@ -55,6 +56,8 @@ func main() {
 	pointers()
 
 	jsonMarshal()
+
+	customSort()
 
 }
 
@@ -358,8 +361,41 @@ func jsonUnmarshal(s string) {
 }
 
 /*
-* Writer Interface
+* custom sort
 */
+
+type Child struct {
+	Name string
+	Age int
+}
+
+// sort by age
+type ByAge []Child
+
+func (a ByAge) Len() int {
+	return len(a)
+}
+
+func (a ByAge) Swap(i,j int) {
+	a[i], a[j] = a[j], a[i]
+}
+
+func (a ByAge) Less(i,j int) bool  {
+	return a[i].Age < a[j].Age
+}
+
+func customSort() {
+	c1 := Child{"A", 2}
+	c2 := Child{"A", 1}
+	c3 := Child{"A", 7}
+	c4 := Child{"A", 4}
+
+	children := []Child{c1, c2, c3, c4}
+
+	fmt.Println(children)
+	sort.Sort(ByAge(children))
+	fmt.Println(children)
+}
 
 
 
